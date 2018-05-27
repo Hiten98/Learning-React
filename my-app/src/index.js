@@ -21,23 +21,25 @@ class Board extends React.Component {
   }
 
   render() {
+    let rowCount = 3;
+    let colCount = 3;
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {
+          [...new Array(rowCount)].map((x, i) => {
+            return (
+              <div className='board-row' key={i}>
+                {
+                  [...new Array(colCount)].map((y, j) => {
+                    return(
+                      this.renderSquare(i*colCount+j)
+                    )
+                  })
+                }
+              </div>
+            );
+          })
+        }
       </div>
     );
   }
@@ -70,7 +72,6 @@ class Game extends React.Component {
         history: history.concat([{
           squares: squares,
         }]),
-
         stepNumber: history.length,
         xIsNext: !this.state.xIsNext,
         moves: moves
